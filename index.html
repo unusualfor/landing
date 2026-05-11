@@ -88,9 +88,6 @@
     .projects {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--ink);
-      border: 1px solid var(--ink);
     }
     .projects > * { opacity: 0; animation: fadeUp 0.9s ease-out forwards; }
     .projects > *:nth-child(1) { animation-delay: 2.6s; }
@@ -99,6 +96,8 @@
     .projects > *:nth-child(4) { animation-delay: 3.05s; }
     @media (max-width: 600px) {
       .projects { grid-template-columns: 1fr; }
+      .tile:nth-child(2n) { border-left: 1px solid var(--ink); }
+      .tile:nth-child(n+2) { border-top: none; }
     }
     .tile {
       background: var(--paper);
@@ -111,7 +110,9 @@
       transition: background 0.5s ease, color 0.5s ease;
       position: relative;
       overflow: hidden;
+      border: 1px solid var(--ink);
     }
+    .tile:nth-child(2n) { border-left: none; }
     .tile::before {
       content: "";
       position: absolute; inset: 0;
@@ -195,7 +196,7 @@
     <footer>
       <a href="https://github.com/unusualfor">github</a>
       <span class="sep">·</span>
-      <a href="https://linkedin.com/in/fr.foresta">linkedin</a>
+      <a href="https://linkedin.com/in/frforesta">linkedin</a>
       <span class="sep">·</span>
       <a href="mailto:info@francescoforesta.com">email</a>
     </footer>
