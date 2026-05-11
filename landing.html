@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Francesco Foresta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #FAF7F0;
+      --ink:   #1A3A5C;
+      --ink-soft: #1A3A5C99;
+      --ink-faint: #1A3A5C33;
+      --text:  #15212F;
+      --seal:  #B23A2E;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--paper);
+      color: var(--text);
+      font-family: 'Fraunces', Georgia, serif;
+      font-variation-settings: "opsz" 14, "SOFT" 30;
+      font-weight: 350;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 4vh 5vw 8vh;
+    }
+    main { width: 100%; max-width: 1040px; }
+
+    .hero {
+      margin-bottom: clamp(2rem, 5vh, 3rem);
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .wave-stack {
+      position: relative;
+      display: inline-block;
+      line-height: 0;
+    }
+    pre.layer {
+      font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+      font-size: clamp(3.2px, 0.84vw, 9px);
+      line-height: 1.0;
+      letter-spacing: 0;
+      white-space: pre;
+      user-select: none;
+      margin: 0;
+      font-weight: 500;
+    }
+    pre.ink { color: var(--ink); position: relative; }
+    pre.ink.scrambling { color: var(--ink-faint); }
+    pre.boats {
+      color: var(--seal);
+      position: absolute;
+      top: 0; left: 0;
+      pointer-events: none;
+      opacity: 0;
+      font-weight: 700;
+    }
+    pre.boats.revealed { animation: boatsIn 0.7s ease-out forwards; }
+    @keyframes boatsIn {
+      0%   { opacity: 0; transform: translateY(2px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+
+    .identity {
+      text-align: center;
+      margin-bottom: clamp(3rem, 8vh, 4.5rem);
+      opacity: 0;
+      animation: fadeUp 1s ease-out 2.4s forwards;
+    }
+    .identity h1 {
+      font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+      font-variation-settings: "opsz" 144, "wght" 400, "SOFT" 50;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+    .identity .seal {
+      display: inline-block;
+      width: 0.3em; height: 0.3em;
+      background: var(--seal);
+      vertical-align: 0.35em;
+      margin-left: 0.15em;
+    }
+    .identity p {
+      font-size: clamp(1rem, 1.7vw, 1.15rem);
+      font-style: italic;
+      color: var(--ink-soft);
+      font-variation-settings: "opsz" 24, "wght" 350;
+      max-width: 36em;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--ink);
+      border: 1px solid var(--ink);
+    }
+    .projects > * { opacity: 0; animation: fadeUp 0.9s ease-out forwards; }
+    .projects > *:nth-child(1) { animation-delay: 2.6s; }
+    .projects > *:nth-child(2) { animation-delay: 2.75s; }
+    .projects > *:nth-child(3) { animation-delay: 2.9s; }
+    .projects > *:nth-child(4) { animation-delay: 3.05s; }
+    @media (max-width: 600px) {
+      .projects { grid-template-columns: 1fr; }
+    }
+    .tile {
+      background: var(--paper);
+      padding: clamp(1.5rem, 3vw, 2.2rem);
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: background 0.5s ease, color 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .tile::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: var(--ink);
+      transform: translateY(101%);
+      transition: transform 0.45s cubic-bezier(.7,.0,.3,1);
+      z-index: 0;
+    }
+    .tile:hover::before { transform: translateY(0); }
+    .tile:hover { color: var(--paper); }
+    .tile:hover .tile-domain { color: var(--paper); opacity: 0.7; }
+    .tile > * { position: relative; z-index: 1; }
+    .tile-name {
+      font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+      font-variation-settings: "opsz" 72, "wght" 450, "SOFT" 50;
+      color: inherit;
+      letter-spacing: -0.01em;
+    }
+    .tile-desc { font-size: 0.98rem; font-style: italic; line-height: 1.45; color: inherit; opacity: 0.85; }
+    .tile-domain {
+      margin-top: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem; letter-spacing: 0.02em;
+      color: var(--ink-soft);
+      transition: color 0.5s ease, opacity 0.5s ease;
+    }
+
+    footer {
+      margin-top: clamp(3rem, 8vh, 5rem);
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: fadeUp 1s ease-out 3.2s forwards;
+    }
+    footer a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: border-color 0.3s, color 0.3s; }
+    footer a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+    footer .sep { display: inline-block; margin: 0 0.8rem; opacity: 0.4; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      pre.ink, pre.ink.scrambling { color: var(--ink); }
+      pre.boats { opacity: 1; animation: none; }
+      .identity, .projects > *, footer { opacity: 1; animation: none; }
+      .tile::before { display: none; }
+      .tile:hover { background: var(--ink); color: var(--paper); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="hero">
+      <div class="wave-stack">
+        <pre class="layer ink scrambling" aria-label="The Great Wave off Kanagawa, rendered as ASCII art"></pre>
+        <pre class="layer boats" aria-hidden="true"></pre>
+      </div>
+    </div>
+
+    <section class="identity">
+      <h1>Francesco Foresta<span class="seal" aria-hidden="true"></span></h1>
+      <p>Software architect — cloud-native telecom, 5G, O-RAN. A few experiments in what a personal corpus can do when you let a language model row through it.</p>
+    </section>
+
+    <section class="projects">
+      <a class="tile" href="https://cv.francescoforesta.com">
+        <div class="tile-name">CV</div>
+        <div class="tile-desc">Query my career through Claude Desktop. An MCP server over my résumé.</div>
+        <div class="tile-domain">cv.francescoforesta.com</div>
+      </a>
+      <a class="tile" href="https://tea.francescoforesta.com">
+        <div class="tile-name">Tea</div>
+        <div class="tile-desc">A retrieval-augmented walk through my Japanese tea library.</div>
+        <div class="tile-domain">tea.francescoforesta.com</div>
+      </a>
+    </section>
+
+    <footer>
+      <a href="https://github.com/unusualfor">github</a>
+      <span class="sep">·</span>
+      <a href="https://linkedin.com/in/fr.foresta">linkedin</a>
+      <span class="sep">·</span>
+      <a href="mailto:info@francescoforesta.com">email</a>
+    </footer>
+  </main>
+
+  <script>
+(function () {
+  const INK   = "                                                                                                                                                                                                        \n       ;%.                                                                                                                                                                                              \n        #                                                                                                                                                                                               \n        #                                                                                                                                                                                               \n       .#;                                                                                                                                                                                              \n        ;                                                                                                                                                                                               \n        ;                                                                   .                                                                                                                           \n            .                                                           *   ..                                                                                                                          \n ;      #*  .                                                   .   ;;                            .                                                                                                     \n;                                   .                           .     .    .        ;         .                                                                                                         \n*        .;                       .                 ;;          .   ;  ###     .  ;   ;                                                                                                                 \n.         %                                            ####     .  ### ####%           .                                                                                                                \n*         #                                           .##### ##*    #########         .     .  *                                                                                                        \n#      #*                                              ######### ##% ######## .    .     .                                                                                                              \n*      *                                          *#### #############*##########    .                                                                                                                   \n.      #  ;.          #                   .## ;### ##### #######################     *                        .  .                                                                                      \n;    *               *                    ### ####.############################%### ###                                                                                                                 \n%                                         ########################################### ##    .                                                                                                           \n;                ;                        ##########################################;;                    .                                                                                             \n               .*                          #############%#############################     ; ;   .                                                                                                      \n              *                             .#############*###########;###########%#;.                    .                                                                                             \n          *%                                        .##%*################;#######*##*#.                                                                                                                 \n   ..;*###                                             %##%######%###########;####         *;                  .;                                                                                       \n####%##*                      *;                    ;*   #####.##############%###                    ;                                                                                                  \n###%                 *       .              ; .      ;##*###%###*##############*                         %         ..                                                                                   \n                    ;      ;                   . *     ###    ;#%##############                  .                  .                                                                                   \n                  .       #  %       .     %     .           # ################                                                                                                                         \n                                *#          ;                  ##   ;% *#######                                  ;                                                                                      \n .     *;;.    %###          %   *   ;          ;          ;           #######*                                                                                                                         \n   .  . .   . #######. *;  ;    .;        ###;#  #. ###%            ### ######                                                                                                                          \n    %          #*####%#####      ;*.*     ##### ###;#### #%     %#.###########                                                                                                                          \n;.;.     ..     ##########%       *        ################      ;.###########                                                                                                                          \n  %    ;.  ;   * **.########    *             *%   ;####;##### *##* ##########*                                                                                                                         \n   % *#         ..  #.######   .    ;              ;############%##%###########                                                                                                                         \n    *####  ##    #####*####%       #           ;  .  *%%######## *########  # #.                                                                                                                        \n;#    ########## #########  #.    ;  ####  %       # ###;######.################                                                                                                          %             \n ###   #####%###.##########.   .#;# ;#####       #  ################### #########                                                                                                       *#              \n####    *#;###############%  .#####*########    ################*  ;#### *##### *#                                                                                                      .             . \n        ;  *################# #######%%##### ;#; #%######## ###       ;%###########                                                                                              ###.                   \n     %   #; ;###############.######%## ########## #########.#*               #######.                                                                                  . .   **###%;                    \n  .          %  ;####;##########%######################.####.                 *####### .                                                                  .   .......;;;. .######*.                    #\n    ;         ; .  ############;####################% ##;#*                     ####### . ;  *  . .                                               . .....;;.;;;;;;;;**.;#####  ##.                *#*##;\n.    ;      % ;*     ;######################*#######; *#                         .###### ...;  %;;*....;;...;..; ;.....;.;;..;.;......;.*;.;.;;;;;*;***;*;*%%*%****;;;%### ;###;                %% #####\n.            %.*;   .;   ;%;############%#############                             ######; %; ;************%;*****************%%##%*.%*;;********%*%%******%%**%%%*#### #####.               ###########\n *        ;#  # . *%.     ; *. ;%####################                                .######*#*;*%.#%%;*%%%%%*%**%%%%%%%%%**%#*   ;##;***%%***%%*%%%%%%%%%*%%%%%%**#.##*%#*            .   #;###########\n### ###% ####; ;.%. . . ;          %**#;.#########.                  .                  %#####%#%#%*%%%%%%%%%%%%%%%%%%%%*%##%       .#%***%%%%%%%%%%%%%%%%%%***%%#%.** ..              %###.###########*\n##*#####* ####;   #;*;  *                                           *                       **.;##%%#%*###########%%%#%%##;           *##%%%####%#%%%%*%**%####%;                  ;     %#########;    \n##### *##%###*##.   %;;*      *  ####  ###                        ;                              %##%###%#######*#######.               %####%###%%%####### #                    ##############      %  \n######.###########%  %. #*%%.;  %#######                      .     %                              %##%%%%###%%#*;  ;#.     #              ;###%%###  ##.                            ######      %###   \n####################% .. .;%##    .#.                               ;                    .           *###%%*%##%%.%;     ;######  .## .      #####         ;.               #*#  # ##          ####     \n  *##*##############*                                . .      .    .                      *             ################   *######################%  .;**               #* #####;.        .%####;       \n       ;..%*;                                        ;         .  ;                            *            *##############%%%#####################;              #########;              .##*          \n                                  .                      %    ;                  ##             ##    ##          ;%#############;*#%*%.;; .                *   ##;#%;            .;%######;            \n                                              ;     .   *                    ;    ###         #%.##*  ;###    #.                                     #% ##* *                   *########               \n                                    .            .                          ###% # *##     *   ;#####   .%#%   ###                                                  ;%*..#############%           %####%\n                    .              .      ;                                 ;### %#  #% #* ##     ####% #####.  ####*                                                 .%########%####       ;*%%**######\n    #.  . ;       *        ;       .       .                                 # ## #    ; ;# %#      #### ######; %####.                                      ;     ;.;;;. ..; ..%           ############\n            %            ###*            *              .   %     .          #####%;#*   ######       ;##########  #####%                         .%##%.      ;%################;                       \n                          ###   ;                        ;      ..  *         #########   .#####;%#       ;########  %#####         *##*              ;########%%%*%%#########                    %#####\n        .   ##;## .   .## ###*    *               .        * ; *               ##########.   %  *  ####;      #######* %######.       ######*     ####;. ..%###############                #############\n  *%###  ;   #* ##### ########       *      ;      *      %           .         ###########.  ###*.* .;%##.##*   #################;      ########.   *#####; *;  ;  .###*           *#############*.   .\n%####### %### ##############;   .;      *    .          %      #  .##*   .       *###########; . ..;*... .. ;###.     *###############*     %########*%%;#########; #;             ;#%%######%;      *%#\n########%#.###########; **    .    %%                   ;    #### ###..#           ############*  .. ;..;;;*% . .# ;       ;*###############  ####.######## *#####;                             *#######\n#####% ###############*    ### #* *######           .;        ######% ###%          ##############   .*. ;;  .%%**#*#               .;;%######  ##  ### ;## *#;           ##############################\n# ####  % ########.####;   ######.%###### #.    #              *###### ##   #%        %#############%. ;;        .  .                        .#  .##;;###;               ###############################\n##########*######*#########.#################                       ##### %* ##*         ##############;                     .         *          ;.              .;*%*%% ;%%################*       ...";
+  const BOATS = "                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n     --;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;-;                                                                                                                                                 \n     ---;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;-                                                                                                                                              \n     --;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;-;                                                                                                                                                 \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                   ;-;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;-;                                                                     \n                                                 ---;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;-                                                                 \n                                                   ;-;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;--;-;                                                                     \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        \n                                                                                                                                                                                                        ";
+  const inkPre   = document.querySelector('pre.ink');
+  const boatsPre = document.querySelector('pre.boats');
+  const reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduced) {
+    inkPre.textContent = INK;
+    inkPre.classList.remove('scrambling');
+    boatsPre.textContent = BOATS;
+    boatsPre.classList.add('revealed');
+    return;
+  }
+
+  // Flatten the ink target for the animation loop
+  const inkChars = [];
+  const isNL = [];
+  for (const ch of INK) { isNL.push(ch === "\n"); inkChars.push(ch); }
+  const N = inkChars.length;
+
+  // Per-cell lock time. Ink cells resolve later than empty cells,
+  // so the wave emerges by negative space carved out of the binary noise.
+  const DURATION = 2000;
+  const lockTime = new Float32Array(N);
+  for (let i = 0; i < N; i++) {
+    if (isNL[i]) { lockTime[i] = 0; continue; }
+    const isInk = inkChars[i] !== " ";
+    const base = Math.random() * (DURATION - 400);
+    lockTime[i] = isInk ? base * 0.5 + (DURATION - 400) * 0.5 : base;
+  }
+
+  const NOISE = "01";
+  const start = performance.now();
+
+  function frame(t) {
+    const elapsed = t - start;
+    const noiseTick = Math.floor(t / 80);
+    let out = "";
+    for (let i = 0; i < N; i++) {
+      if (isNL[i]) { out += "\n"; continue; }
+      if (elapsed >= lockTime[i]) {
+        out += inkChars[i];
+      } else {
+        const seed = ((i * 9301 + 49297 + noiseTick * 17) >>> 0) % NOISE.length;
+        out += NOISE[seed];
+      }
+    }
+    inkPre.textContent = out;
+
+    if (elapsed < DURATION) {
+      requestAnimationFrame(frame);
+    } else {
+      inkPre.classList.remove('scrambling');
+      setTimeout(() => {
+        boatsPre.textContent = BOATS;
+        boatsPre.classList.add('revealed');
+      }, 250);
+    }
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
