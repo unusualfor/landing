@@ -96,7 +96,7 @@
     .projects > *:nth-child(4) { animation-delay: 3.05s; }
     @media (max-width: 600px) {
       .projects { grid-template-columns: 1fr; }
-      .tile:nth-child(2n) { border-left: 1px solid var(--ink); }
+      .tile { border-left: 1px solid var(--ink); }
       .tile:nth-child(n+2) { border-top: none; }
     }
     .tile {
@@ -112,7 +112,9 @@
       overflow: hidden;
       border: 1px solid var(--ink);
     }
-    .tile:nth-child(2n) { border-left: none; }
+    @media (min-width: 601px) {
+      .tile:nth-child(2n) { border-left: none; }
+    }
     .tile::before {
       content: "";
       position: absolute; inset: 0;
